@@ -10,9 +10,6 @@ echo "Adding users and groups"
 groupadd -g 2000 media_tools
 
 useradd -u 2000 -g media_tools plex -s /bin/bash
-useradd -u 2001 -g media_tools sabnzbd -s /bin/bash
-useradd -u 2002 -g media_tools sonarr -s /bin/bash
-useradd -u 2003 -g media_tools radarr -s /bin/bash
 
 home_dir="/data"
 
