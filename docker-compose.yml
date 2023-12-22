@@ -17,6 +17,8 @@ services:
       - /data/configs/plex:/config
       - /data/media/tv:/tv
       - /data/media/movies:/movies
+    ports:
+      - 32400:32400
     restart: unless-stopped
 
   sabnzbd:
