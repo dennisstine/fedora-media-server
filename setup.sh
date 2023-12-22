@@ -53,7 +53,7 @@ mkdir -p "$incoming_usenet_dir/complete/etc"
 
 echo "Setting permissions on $home_dir"
 
-chgrp -R +2000 "$home_dir"
-chmod +rw "$home_dir"
+chown -R root:media_tools
+chmod g+rwx "$home_dir"
 
 
