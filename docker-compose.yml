@@ -27,7 +27,8 @@ services:
       - TZ=America/Chicago
     volumes:
       - /data/configs/sabnzbd:/config
-      - /data/usenet:/data/usenet
+      - /data/incoming/usenet/complete:/downloads
+      - /data/incoming/usenet/incomplete:/incomplete-downloads
     ports:
       - 8080:8080
     restart: unless-stopped
@@ -41,7 +42,8 @@ services:
       - TZ=America/Chicago
     volumes:
       - /data/configs/sonarr:/config
-      - /data:/data
+      - /data/media/tv:/tv
+      - /data/incoming/usenet/complete:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -55,7 +57,8 @@ services:
       - TZ=America/Chicago
     volumes:
       - /data/configs/radarr:/config
-      - /data:/data
+      - /data/media/movies:/movies
+      - /data/incoming/usenet/complete:/downloads
     ports:
       - 7878:7878
     restart: unless-stopped
