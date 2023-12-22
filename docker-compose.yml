@@ -23,7 +23,7 @@ services:
     image: ghcr.io/linuxserver/sabnzbd
     container_name: sabnzbd
     environment:
-      - PUID=2001
+      - PUID=2000
       - PGID=2000
       - TZ=America/Chicago
     volumes:
@@ -37,7 +37,7 @@ services:
     image: ghcr.io/linuxserver/sonarr
     container_name: sonarr
     environment:
-      - PUID=2002
+      - PUID=2000
       - PGID=2000
       - TZ=America/Chicago
     volumes:
@@ -51,7 +51,7 @@ services:
     image: ghcr.io/linuxserver/radarr
     container_name: radarr
     environment:
-      - PUID=2003
+      - PUID=2000
       - PGID=2000
       - TZ=America/Chicago
     volumes:
