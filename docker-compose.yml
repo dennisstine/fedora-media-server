@@ -15,7 +15,8 @@ services:
       - VERSION=docker
     volumes:
       - /data/configs/plex:/config
-      - /data:/data
+      - /data/media/tv:/tv
+      - /data/media/movies:/movies
     restart: unless-stopped
 
   sabnzbd:
