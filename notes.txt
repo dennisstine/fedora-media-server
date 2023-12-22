@@ -1,4 +1,9 @@
-Good info: https://trash-guides.info/Downloaders/SABnzbd/Basic-Setup/
+Good info:
+https://trash-guides.info/Hardlinks/How-to-setup-for/Docker/
+https://trash-guides.info/Downloaders/SABnzbd/Basic-Setup/
+https://trash-guides.info/Hardlinks/Examples/
+
+
 
 Pre-work
 
