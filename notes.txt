@@ -71,6 +71,8 @@ realtime =none                   extsz=4096   blocks=0, rtextents=0
 data blocks changed from 3932160 to 976337920
 
 
-
+Post work:
 
 If Sabnzbd is downloading slowly, check simultaneous connections - supernews allows 30x - default for Sabnzbd is 8.
+
+in sabnzbd "special" config, update host_whitelist = sabnzbd.  this enables radarr and sonarr to resolve sabnzbd.
