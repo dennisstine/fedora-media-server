@@ -13,7 +13,7 @@ services:
       - TZ=America/Chicago
       - UMASK_SET=022
       - VERSION=docker
-      - PLEX_CLAIM=claim-a2RisWkFS4Kk9Dhzsyyv # optional - makes first auth simpler - only valid for 240 sec.
+      # - PLEX_CLAIM=claim-a2RisWkFS4Kk9Dhzsyyv # optional - makes first auth simpler - only valid for 240 sec.
     volumes:
       - /data/configs/plex:/config
       - /data/media/tv:/tv
