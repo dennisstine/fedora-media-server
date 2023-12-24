@@ -56,6 +56,7 @@ services:
       - /data/incoming/usenet/complete/movies:/data/incoming/usenet/complete/movies # sabnzbd's completed directory (where to monitor for completed downloads)
       - /data/incoming/usenet/complete/movies:/downloads/movies # radarr also needs this alias from sabnzbd
       - /data/media/movies:/movies # the plex movies library directory (where radarr moves completed movies to)
+      - /data/media/movies:/data/media/movies # radarr also needs this alias
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -75,6 +76,7 @@ services:
       - /data/incoming/usenet/complete/tv:/data/incoming/usenet/complete/tv # sabnzbd's completed directory (where to monitor for completed downloads)
       - /data/incoming/usenet/complete/tv:/downloads/tv # sonarr also needs this alias from sabnzbd
       - /data/media/tv:/tv # the plex tv library directory (where sonarr tv completed movies to)
+      - /data/media/tv:/data/media/tv # sonarr also needs this alias
     ports:
       - 8989:8989
     restart: unless-stopped
