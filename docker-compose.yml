@@ -54,7 +54,7 @@ services:
       # limit permissions to radarr ./config, sabnzbd completed dir (to move files from), the plex movies library (to move files to)
       - /data/configs/radarr:/config # radarr home - configs, appdata, etc. persistence
       - /data/incoming/usenet/complete/movies:/data/incoming/usenet/complete/movies # sabnzbd's completed directory (where to monitor for completed downloads)
-      - /data/media/movies:/movies # the plex movies library directory (where radarr moves completed movies to)
+      - /data/media/movies:/data/media/movies # the plex movies library directory (where radarr moves completed movies to)
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -72,7 +72,7 @@ services:
       # limit permissions to sonarr ./config, sabnzbd completed dir (to move files from), the plex tv library (to move files to)
       - /data/configs/sonarr:/config # sonarr home - configs, appdata, etc. persistence
       - /data/incoming/usenet/complete/tv:/data/incoming/usenet/complete/tv # sabnzbd's completed directory (where to monitor for completed downloads)
-      - /data/media/tv:/tv # the plex tv library directory (where sonarr tv completed movies to)
+      - /data/media/tv:/data/media/tv # the plex tv library directory (where sonarr tv completed movies to)
     ports:
       - 8989:8989
     restart: unless-stopped
