@@ -1,63 +1,80 @@
 ---
+# '/data' refers to the LVM that maps to /dev/mapper/fedora-root aka sda3.  This is the 4TB HDD at the time of writing.
+# see notes.txt regarding a host_whitelist that needs to happen in sabnzbd for networking to work.
 version: "3.8"
 services:
+
+  # client–server for movies, tv shows, etc. aka media server/homebrew netflix
   plex:
     image: ghcr.io/linuxserver/plex
     container_name: plex
-    network_mode: host
+    network_mode: host # host networking takes care of forwarding :34200
     devices:
       - /dev/dri:/dev/dri
     environment:
-      - PUID=2000
-      - PGID=2000
+      - PUID=2000 # plex
+      - PGID=2000 # plex
       - TZ=America/Chicago
       - UMASK_SET=022
       - VERSION=docker
-      # - PLEX_CLAIM=claim-a2RisWkFS4Kk9Dhzsyyv # optional - makes first auth simpler - only valid for 240 sec.
     volumes:
-      - /data/configs/plex:/config
-      - /data/media/tv:/tv
-      - /data/media/movies:/movies
+      # limit permissions to plex ./config, and the /data/media/{movies/tv} dirs that radarr/sonarr move completed downloads to
+      - /data/configs/plex:/config # plex home - configs, appdata, etc. persistence
+      - /data/media/movies:/movies # completed movie downloads requested through radarr <--> sabnzbd end up here - this is the plex 'Movies' library
+      - /data/media/tv:/tv # completed tv downloads requested through sonarr <--> sabnzbd end up here - this is the plex 'TV Shows' library
     restart: unless-stopped
 
+  # binary newsreader (usenet newsgroup client) aka downloader
   sabnzbd:
     image: ghcr.io/linuxserver/sabnzbd
     container_name: sabnzbd
     environment:
-      - PUID=2000
-      - PGID=2000
+      - PUID=2000 # plex
+      - PGID=2000 # plex
       - TZ=America/Chicago
     volumes:
-      - /data/configs/sabnzbd:/config
-      - /data:/data
+      # limit permissions to sabnzbd ./config, and incoming/usenet/{complete/incomplete} for downloads until moved by radarr/sonarr
+      - /data/configs/sabnzbd:/config # sabnzbd home - configs, appdata, etc. persistence
+      - /data/incoming/usenet/complete:/downloads # UI: Folders: Completed Download Folder: /downloads.
+      - /data/incoming/usenet/incomplete:/incomplete-downloads # UI: Folders: Temporary Download Folder: /incomplete-downloads
     ports:
       - 8080:8080
     restart: unless-stopped
 
-  sonarr:
-    image: ghcr.io/linuxserver/sonarr
-    container_name: sonarr
-    environment:
-      - PUID=2000
-      - PGID=2000
-      - TZ=America/Chicago
-    volumes:
-      - /data/configs/sonarr:/config
-      - /data:/data
-    ports:
-      - 8989:8989
-    restart: unless-stopped
-
+  # 'internet pvr' for usenet clients (movies) aka movie finder
+  # add root folder in UI: /movies (storage: /data/media/movies) - enables download monitoring/completed moving to plex movies library
   radarr:
     image: ghcr.io/linuxserver/radarr
     container_name: radarr
     environment:
-      - PUID=2000
-      - PGID=2000
+      - PUID=2000 # plex
+      - PGID=2000 # plex
       - TZ=America/Chicago
     volumes:
-      - /data/configs/radarr:/config
-      - /data:/data
+      # limit permissions to radarr ./config, sabnzbd completed dir (to move files from), the plex movies library (to move files to)
+      - /data/configs/radarr:/config # radarr home - configs, appdata, etc. persistence
+      - /data/incoming/usenet/complete:/downloads # sabnzbd's completed directory (where to monitor for completed downloads)
+      - /data/media/movies:/movies # the plex movies library directory (where radarr moves completed movies to)
     ports:
       - 7878:7878
     restart: unless-stopped
+    
+  # 'internet pvr' for usenet clients (tv shows) aka tv finder
+  # add root folder in UI: /tv (storage: /data/media/tv) - enables download monitoring/completed moving to plex tv library
+  sonarr:
+    image: ghcr.io/linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=2000 # plex
+      - PGID=2000 # plex
+      - TZ=America/Chicago
+    volumes:
+      # limit permissions to sonarr ./config, sabnzbd completed dir (to move files from), the plex tv library (to move files to)
+      - /data/configs/sonarr:/config # sonarr home - configs, appdata, etc. persistence
+      - /data/incoming/usenet/complete:/downloads # sabnzbd's completed directory (where to monitor for completed downloads)
+      - /data/media/tv:/tv # the plex tv library directory (where sonarr tv completed movies to)
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+
