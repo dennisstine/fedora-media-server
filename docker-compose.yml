@@ -35,10 +35,13 @@ services:
     volumes:
       # limit permissions to sabnzbd ./config, and incoming/usenet/{complete/incomplete} for downloads until moved by radarr/sonarr
       - /data/configs/sabnzbd:/config # sabnzbd home - configs, appdata, etc. persistence
-      - /data/incoming/usenet/complete:/downloads # UI: Folders: Completed Download Folder: /downloads.
-      - /data/incoming/usenet/incomplete:/incomplete-downloads # UI: Folders: Temporary Download Folder: /incomplete-downloads
+      # map the following values for sabnzbd - do not use the default /downloads and /incomplete-downloads.
+      # radarr and sonarr need to know where completed downloads are (root before /tv or /movies).
+      # if an volume is setup here, it has to be duplicated in radarr/sonarr below.
+      - /data/incoming/usenet/complete:/data/incoming/usenet/complete # UI: Folders: Completed Download Folder: /data/incoming/usenet/complete MAP THIS.
+      - /data/incoming/usenet/incomplete:/data/incoming/usenet/incomplete # UI: Folders: Temporary Download Folder: /data/incoming/usenet/incomplete  MAP THIS.
     ports:
-      - 8080:8080
+      - "8080:8080"
     restart: unless-stopped
 
   # 'internet pvr' for usenet clients (movies) aka movie finder
@@ -54,11 +57,9 @@ services:
       # limit permissions to radarr ./config, sabnzbd completed dir (to move files from), the plex movies library (to move files to)
       - /data/configs/radarr:/config # radarr home - configs, appdata, etc. persistence
       - /data/incoming/usenet/complete/movies:/data/incoming/usenet/complete/movies # sabnzbd's completed directory (where to monitor for completed downloads)
-      - /data/incoming/usenet/complete/movies:/downloads/movies # radarr also needs this alias from sabnzbd
       - /data/media/movies:/movies # the plex movies library directory (where radarr moves completed movies to)
-      - /data/media/movies:/data/media/movies # radarr also needs this alias
     ports:
-      - 7878:7878
+      - "7878:7878"
     restart: unless-stopped
     
   # 'internet pvr' for usenet clients (tv shows) aka tv finder
@@ -74,11 +75,27 @@ services:
       # limit permissions to sonarr ./config, sabnzbd completed dir (to move files from), the plex tv library (to move files to)
       - /data/configs/sonarr:/config # sonarr home - configs, appdata, etc. persistence
       - /data/incoming/usenet/complete/tv:/data/incoming/usenet/complete/tv # sabnzbd's completed directory (where to monitor for completed downloads)
-      - /data/incoming/usenet/complete/tv:/downloads/tv # sonarr also needs this alias from sabnzbd
       - /data/media/tv:/tv # the plex tv library directory (where sonarr tv completed movies to)
-      - /data/media/tv:/data/media/tv # sonarr also needs this alias
     ports:
-      - 8989:8989
+      - "8989:8989"
     restart: unless-stopped
 
-
+  # docker host and container monitor
+  # needs 'root' access and for various dev and sys files from the host to be available
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    privileged: true
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk:/dev/disk/:ro
+      - /sys/fs/cgroup/cpu:/sys/fs/cgroup/cpu
+      - /sys/fs/cgroup/cpuacct:/sys/fs/cgroup/cpuacct
+    ports:
+      - "8282:8080"
+    devices:
+      - /dev/kmsg:/dev/kmsg
+    restart: unless-stopped
