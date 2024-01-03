@@ -80,22 +80,21 @@ services:
       - "8989:8989"
     restart: unless-stopped
 
-  # docker host and container monitor
-  # needs 'root' access and for various dev and sys files from the host to be available
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
-    container_name: cadvisor
-    privileged: true
+  dex:
+    image: spx01/dex
+    container_name: dex
     volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-      - /dev/disk:/dev/disk/:ro
-      - /sys/fs/cgroup/cpu:/sys/fs/cgroup/cpu
-      - /sys/fs/cgroup/cpuacct:/sys/fs/cgroup/cpuacct
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "8282:8080"
-    devices:
-      - /dev/kmsg:/dev/kmsg
+      - "9292:8080"
+    restart: always
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
     restart: unless-stopped
+    volumes:
+      - ./prometheus_dex_ds.yml:/etc/grafana/provisioning/datasources/prometheus_dex_ds.yml
+      - ./grafana_dashboard.json:/var/lib/grafana/dashboards/grafana_dashboard.json
