@@ -98,3 +98,15 @@ services:
     volumes:
       - ./prometheus_dex_ds.yml:/etc/grafana/provisioning/datasources/prometheus_dex_ds.yml
       - ./grafana_dashboard.json:/var/lib/grafana/dashboards/grafana_dashboard.json
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - /data/prometheus:/prometheus

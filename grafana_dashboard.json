@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -15,14 +18,17 @@
   },
   "description": "0xERR0R / dex metrics exporter Dashboard",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 16,
-  "iteration": 1627457996017,
+  "id": 1,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P55E7E4D5B4F0C652"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -30,7 +36,14 @@
           },
           "custom": {
             "fillOpacity": 70,
-            "lineWidth": 0
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
           },
           "mappings": [
             {
@@ -86,17 +99,23 @@
         "alignValue": "center",
         "legend": {
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "mergeValues": true,
         "rowHeight": 0.9,
         "showValue": "auto",
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P55E7E4D5B4F0C652"
+          },
           "exemplar": true,
           "expr": "count(dex_container_running{container_name=~\"$container\"}) by (container_name)",
           "interval": "",
@@ -108,7 +127,10 @@
       "type": "state-timeline"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P55E7E4D5B4F0C652"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -139,6 +161,7 @@
         "legend": {
           "displayMode": "table",
           "placement": "right",
+          "showLegend": true,
           "values": [
             "percent",
             "value"
@@ -153,11 +176,16 @@
           "values": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P55E7E4D5B4F0C652"
+          },
           "exemplar": true,
           "expr": "avg_over_time(dex_cpu_utilization_percent{container_name=~\"$container\"}[$range])",
           "instant": true,
@@ -170,7 +198,10 @@
       "type": "piechart"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P55E7E4D5B4F0C652"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -210,11 +241,16 @@
           "values": false
         },
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P55E7E4D5B4F0C652"
+          },
           "exemplar": true,
           "expr": "count(dex_container_running{container_name=~\"$container\"})",
           "interval": "",
@@ -226,7 +262,10 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P55E7E4D5B4F0C652"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -257,6 +296,7 @@
         "legend": {
           "displayMode": "table",
           "placement": "right",
+          "showLegend": true,
           "values": [
             "percent",
             "value"
@@ -271,11 +311,16 @@
           "values": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P55E7E4D5B4F0C652"
+          },
           "exemplar": true,
           "expr": "avg_over_time(dex_memory_usage_bytes{container_name=~\"$container\"}[$range])",
           "instant": true,
@@ -288,13 +333,19 @@
       "type": "piechart"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P55E7E4D5B4F0C652"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -306,6 +357,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -351,14 +403,20 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "multi"
+          "mode": "multi",
+          "sort": "none"
         }
       },
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P55E7E4D5B4F0C652"
+          },
           "exemplar": true,
           "expr": "avg_over_time(dex_cpu_utilization_percent{container_name=~\"$container\"}[$range])",
           "interval": "",
@@ -370,13 +428,19 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P55E7E4D5B4F0C652"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -388,6 +452,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -434,14 +499,20 @@
             "last"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "multi"
+          "mode": "multi",
+          "sort": "none"
         }
       },
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P55E7E4D5B4F0C652"
+          },
           "exemplar": true,
           "expr": "dex_memory_usage_bytes{container_name=~\"$container\"}",
           "hide": false,
@@ -454,7 +525,10 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P55E7E4D5B4F0C652"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -493,8 +567,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -517,7 +590,8 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi"
@@ -525,6 +599,10 @@
       },
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P55E7E4D5B4F0C652"
+          },
           "exemplar": true,
           "expr": "rate(dex_network_rx_bytes{container_name=~\"$container\"}[$range])",
           "interval": "",
@@ -532,6 +610,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P55E7E4D5B4F0C652"
+          },
           "exemplar": true,
           "expr": "-rate(dex_network_tx_bytes{container_name=~\"$container\"}[$range])",
           "hide": false,
@@ -544,7 +626,10 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P55E7E4D5B4F0C652"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -583,8 +668,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -607,7 +691,8 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi"
@@ -615,6 +700,10 @@
       },
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P55E7E4D5B4F0C652"
+          },
           "exemplar": true,
           "expr": "rate(dex_block_io_read_bytes{container_name=~\"$container\"}[$range])",
           "interval": "",
@@ -622,6 +711,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P55E7E4D5B4F0C652"
+          },
           "exemplar": true,
           "expr": "-rate(dex_block_io_write_bytes{container_name=~\"$container\"}[$range])",
           "hide": false,
@@ -635,8 +728,7 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 30,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [
     "prometheus",
     "dex"
@@ -644,7 +736,6 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
           "selected": true,
           "text": [
@@ -654,10 +745,11 @@
             "$__all"
           ]
         },
-        "datasource": null,
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P55E7E4D5B4F0C652"
+        },
         "definition": "dex_block_io_read_bytes",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "container",
@@ -683,10 +775,7 @@
           "text": "auto",
           "value": "$__auto_interval_range"
         },
-        "description": null,
-        "error": null,
         "hide": 0,
-        "label": null,
         "name": "range",
         "options": [
           {
@@ -760,5 +849,6 @@
   "timezone": "",
   "title": "Dex Metrics",
   "uid": "Sk4Ci0W7k",
-  "version": 12
+  "version": 1,
+  "weekStart": ""
 }
