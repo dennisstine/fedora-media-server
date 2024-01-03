@@ -99,6 +99,7 @@ services:
       - ./prometheus_dex_ds.yml:/etc/grafana/provisioning/datasources/prometheus_dex_ds.yml
       - ./grafana_dashboard.json:/var/lib/grafana/dashboards/grafana_dashboard.json
       - /data/grafana:/var/lib/grafana
+
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
