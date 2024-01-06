@@ -22,6 +22,7 @@ services:
       - /data/configs/plex:/config # plex home - configs, appdata, etc. persistence
       - /data/media/movies:/movies # completed movie downloads requested through radarr <--> sabnzbd end up here - this is the plex 'Movies' library
       - /data/media/tv:/tv # completed tv downloads requested through sonarr <--> sabnzbd end up here - this is the plex 'TV Shows' library
+      - /dev/shm/:/dev/shm/ # the transcoding temporary directory is set to /dev/shm/
     restart: unless-stopped
 
   # binary newsreader (usenet newsgroup client) aka downloader
