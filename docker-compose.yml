@@ -83,7 +83,7 @@ services:
 
     # 'internet pvr' for usenet clients (music) aka song finder (like Napster, but not full of malware)
   # add root folder in UI: /music (storage: /data/media/music) - enables download monitoring/completed moving to plex music library (where it can be downloaded)
-  sonarr:
+  lidarr:
     image: ghcr.io/linuxserver/lidarr:latest
     container_name: lidarr
     environment:
