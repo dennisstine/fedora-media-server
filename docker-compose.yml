@@ -76,7 +76,7 @@ services:
       # limit permissions to sonarr ./config, sabnzbd completed dir (to move files from), the plex tv library (to move files to)
       - /data/configs/sonarr:/config # sonarr home - configs, appdata, etc. persistence
       - /data/incoming/usenet/complete/tv:/data/incoming/usenet/complete/tv # sabnzbd's completed directory (where to monitor for completed downloads)
-      - /data/media/tv:/tv # the plex tv library directory (where sonarr tv completed movies to)
+      - /data/media/tv:/tv # the plex tv library directory (where sonarr moves completed tv shows to)
     ports:
       - "8989:8989"
     restart: unless-stopped
@@ -92,9 +92,9 @@ services:
       - TZ=America/Chicago
     volumes:
       # limit permissions to radarr ./config, sabnzbd completed dir (to move files from), the plex tv library (to move files to)
-      - /data/configs/radarr:/config # sonarr home - configs, appdata, etc. persistence
+      - /data/configs/lidarr:/config # sonarr home - configs, appdata, etc. persistence
       - /data/incoming/usenet/complete/music:/data/incoming/usenet/complete/music # sabnzbd's completed directory (where to monitor for completed downloads)
-      - /data/media/music:/music # the plex tv library directory (where sonarr tv completed movies to)
+      - /data/media/music:/music # the plex music library directory (where lidarr moves completed music to)
     ports:
       - "8686:8686"
     restart: unless-stopped
