@@ -81,7 +81,7 @@ services:
       - "8989:8989"
     restart: unless-stopped
 
-    # 'internet pvr' for usenet clients (music) aka song finder (like Napster, but not full of malware)
+  # 'internet pvr' for usenet clients (music) aka song finder (like Napster, but not full of malware)
   # add root folder in UI: /music (storage: /data/media/music) - enables download monitoring/completed moving to plex music library (where it can be downloaded)
   lidarr:
     image: ghcr.io/linuxserver/lidarr:latest
