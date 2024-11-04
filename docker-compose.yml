@@ -108,6 +108,8 @@ services:
       - TZ=America/Chicago
     volumes:
       - /data/configs/kometa:/config
+    ports:
+      - "8080:8686"
     restart: unless-stopped
 
   dex:
