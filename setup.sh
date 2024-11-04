@@ -24,11 +24,13 @@ mkdir -p "$configs_dir/plex"
 mkdir -p "$configs_dir/sabnzbd"
 mkdir -p "$configs_dir/sonarr"
 mkdir -p "$configs_dir/radarr"
+mkdir -p "$configs_dir/kometa"
 
 chown -R plex:media_tools "$configs_dir/plex"
 chown -R sabnzbd:media_tools "$configs_dir/sabnzbd"
 chown -R sonarr:media_tools "$configs_dir/sonarr"
 chown -R radarr:media_tools "$configs_dir/radarr"
+chown -R plex:media_tools "$configs_dir/kometa"
 
 echo "Creating completed media directories"
 
