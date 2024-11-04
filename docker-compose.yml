@@ -101,15 +101,16 @@ services:
   #   restart: unless-stopped
 
   # formerly plex-media-manager - manages media metadata which is read by plex
+
   kometa:
-    image: kometateam/kometa
+    image: lscr.io/linuxserver/kometa:latest
     container_name: kometa
     environment:
+      - PUID=1000
+      - PGID=1000
       - TZ=America/Chicago
     volumes:
       - /data/configs/kometa:/config
-    ports:
-      - "8686:8080"
     restart: unless-stopped
 
   dex:
