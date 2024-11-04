@@ -106,8 +106,8 @@ services:
     image: lscr.io/linuxserver/kometa:latest
     container_name: kometa
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=2000
+      - PGID=2000
       - TZ=America/Chicago
       - KOMETA_CONFIG=/config/config.yml
     volumes:
