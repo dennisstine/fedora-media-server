@@ -113,6 +113,8 @@ services:
       - /data/configs/kometa:/config
       - /data/media/movies:/radarr/movies # kometa's radarr config's root_folder_path - this is the plex 'Movies' library
       - /data/media/tv:/sonarr/tv # kometa's sonarr config's root_folder_path - this is the plex 'TV Shows' library
+    ports:
+      - "7676:8080"
     restart: unless-stopped
 
   dex:
