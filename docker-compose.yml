@@ -84,20 +84,30 @@ services:
 
   # 'internet pvr' for usenet clients (music) aka song finder (like Napster, but not full of malware)
   # add root folder in UI: /music (storage: /data/media/music) - enables download monitoring/completed moving to plex music library (where it can be downloaded)
-  lidarr:
-    image: ghcr.io/linuxserver/lidarr:latest
-    container_name: lidarr
+  # lidarr:
+  #   image: ghcr.io/linuxserver/lidarr:latest
+  #   container_name: lidarr
+  #   environment:
+  #     - PUID=2000 # plex
+  #     - PGID=2000 # plex
+  #     - TZ=America/Chicago
+  #   volumes:
+  #     # limit permissions to radarr ./config, sabnzbd completed dir (to move files from), the plex tv library (to move files to)
+  #     - /data/configs/lidarr:/config # sonarr home - configs, appdata, etc. persistence
+  #     - /data/incoming/usenet/complete/music:/data/incoming/usenet/complete/music # sabnzbd's completed directory (where to monitor for completed downloads)
+  #     - /data/media/music:/music # the plex music library directory (where lidarr moves completed music to)
+  #   ports:
+  #     - "8686:8686"
+  #   restart: unless-stopped
+
+  # formerly plex-media-manager - manages media metadata which is read by plex
+  kometa:
+    image: kometateam/kometa
+    container_name: kometa
     environment:
-      - PUID=2000 # plex
-      - PGID=2000 # plex
       - TZ=America/Chicago
     volumes:
-      # limit permissions to radarr ./config, sabnzbd completed dir (to move files from), the plex tv library (to move files to)
-      - /data/configs/lidarr:/config # sonarr home - configs, appdata, etc. persistence
-      - /data/incoming/usenet/complete/music:/data/incoming/usenet/complete/music # sabnzbd's completed directory (where to monitor for completed downloads)
-      - /data/media/music:/music # the plex music library directory (where lidarr moves completed music to)
-    ports:
-      - "8686:8686"
+      - - /data/configs/kometa:/config
     restart: unless-stopped
 
   dex:
