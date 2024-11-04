@@ -111,6 +111,8 @@ services:
       - TZ=America/Chicago
     volumes:
       - /data/configs/kometa:/config
+      - /data/media/movies:/radarr/movies # kometa's radarr config's root_folder_path - this is the plex 'Movies' library
+      - /data/media/tv:/sonarr/tv # kometa's sonarr config's root_folder_path - this is the plex 'TV Shows' library
     restart: unless-stopped
 
   dex:
