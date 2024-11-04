@@ -109,7 +109,7 @@ services:
     volumes:
       - /data/configs/kometa:/config
     ports:
-      - "8080:8686"
+      - "8686:8080"
     restart: unless-stopped
 
   dex:
