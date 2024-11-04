@@ -24,6 +24,9 @@ sudo firewall-cmd --zone=FedoraServer --permanent --add-port 7878/tcp
 # lidarr
 sudo firewall-cmd --zone=FedoraServer --permanent --add-port 8686/tcp
 
+# kometa
+sudo firewall-cmd --zone=FedoraServer --permanent --add-port 7676/tcp
+
 # dex
 sudo firewall-cmd --zone=FedoraServer --permanent --add-port 9292/tcp
 
